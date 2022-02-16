@@ -1,25 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import SignInSide from "./components/pages/SignIn";
+import {Route, Routes} from "react-router-dom";
+import SignUp from "./components/pages/SignUp";
+import NavBar from "./components/layout/NavBar";
+
+import CustomizedSnackbars from "./components/Snackbar";
+import * as React from "react";
+import AllQuestionsPage from "./components/pages/AllQuestions";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <NavBar/>
+            <Routes>
+                <Route path='/' element={<AllQuestionsPage/>}>
+                </Route>
+
+                <Route path='/login' element={<SignInSide/>}>
+                </Route>
+
+                <Route path='/register' element={<SignUp/>}>
+                </Route>
+            </Routes>
+        </div>
+    )
 }
 
 export default App;
