@@ -14,12 +14,14 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import axios from "axios";
 import {useNavigate} from "react-router";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import RegisterContex from "../contexts/registery-context";
+import CustomizedSnackbars from "../Snackbar";
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function Register() {
+    const [registerFail, setRegisterFail] = useState(false);
     const navigate= useNavigate();
     const registerCtx= useContext(RegisterContex)
 
@@ -32,9 +34,11 @@ export default function SignUp() {
             password: data.get('password'),
             email: data.get('email'),
         };
-        const response = await axios.post("https://localhost:44338/api/Users/register", user);
-        registerCtx.makeRegistration();
-        navigate("/login")
+        const response = await axios.post("https://localhost:44338/api/Users/register", user)
+            .catch(setRegisterFail(prevState => true));
+        await axios.post("https://localhost:44338/api/Users/login", user, {withCredentials: true})
+        registerCtx.makeLogin();
+        navigate("/")
     };
 
     return (
@@ -110,6 +114,8 @@ export default function SignUp() {
                     </Box>
                 </Box>
             </Container>
+            {registerFail &&
+            <CustomizedSnackbars severity="error" message="Login failed"/>}
         </ThemeProvider>
     );
 }

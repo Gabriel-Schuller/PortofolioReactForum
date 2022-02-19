@@ -9,7 +9,7 @@ import * as React from "react";
 
 
 function UserBox() {
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+    const settings = ['Profile', 'Account', 'Logout'];
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 

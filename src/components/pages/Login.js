@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import RegisterContex from "../contexts/registery-context";
 import CustomizedSnackbars from "../Snackbar";
 import axios from "axios";
@@ -21,7 +21,8 @@ import {useNavigate} from "react-router";
 
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function Login() {
+    const [loginFail, setLoginFail] = useState(false);
     const registerCtx = useContext(RegisterContex);
     const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ export default function SignInSide() {
         const data = new FormData(event.currentTarget);
         let user = {userName: data.get('userName'), password: data.get('password')}
         await axios.post("https://localhost:44338/api/Users/login", user, {withCredentials: true})
+            .catch(setLoginFail(prevState => true))
         registerCtx.makeLogin();
         navigate("/");
     };
@@ -118,8 +120,8 @@ export default function SignInSide() {
                     </Box>
                 </Grid>
             </Grid>
-            {registerCtx.registrationMade &&
-                <CustomizedSnackbars severity="success" message="Successful Registration "/>}
+            {loginFail &&
+            <CustomizedSnackbars severity="error" message="Login failed"/>}
 
         </ThemeProvider>
     );

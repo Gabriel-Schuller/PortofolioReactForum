@@ -9,6 +9,7 @@ function AllQuestionsPage() {
         <div>
             This is the questions page
             {registerCtx.loginMode && <CustomizedSnackbars severity="success" message="Login Successful"/>}
+
         </div>
     );
 };

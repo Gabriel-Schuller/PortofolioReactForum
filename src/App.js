@@ -1,13 +1,14 @@
-import logo from './logo.svg';
+
 import './App.css';
-import SignInSide from "./components/pages/SignIn";
+import Login from "./components/pages/Login";
 import {Route, Routes} from "react-router-dom";
-import SignUp from "./components/pages/SignUp";
+import Register from "./components/pages/Register";
 import NavBar from "./components/layout/NavBar";
 
-import CustomizedSnackbars from "./components/Snackbar";
+
 import * as React from "react";
 import AllQuestionsPage from "./components/pages/AllQuestions";
+
 
 function App() {
     return (
@@ -17,10 +18,12 @@ function App() {
                 <Route path='/' element={<AllQuestionsPage/>}>
                 </Route>
 
-                <Route path='/login' element={<SignInSide/>}>
+
+
+                <Route path='/login' element={<Login/>}>
                 </Route>
 
-                <Route path='/register' element={<SignUp/>}>
+                <Route path='/register' element={<Register/>}>
                 </Route>
             </Routes>
         </div>
