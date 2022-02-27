@@ -8,6 +8,11 @@ import NavBar from "./components/layout/NavBar";
 
 import * as React from "react";
 import AllQuestionsPage from "./components/pages/AllQuestions";
+import SignInSide from "./components/layout/LogBar";
+import ConditionalModal from "./components/simpleComponents/Modal";
+import LogoutDialog from "./components/simpleComponents/Modal";
+import QuestionList from "./components/questions/QuestionList";
+import GutterlessList from "./components/questions/QuestionItem";
 
 
 function App() {
@@ -19,6 +24,8 @@ function App() {
                 </Route>
 
 
+                <Route path='/a' element={<QuestionList/>}>
+                </Route>
 
                 <Route path='/login' element={<Login/>}>
                 </Route>

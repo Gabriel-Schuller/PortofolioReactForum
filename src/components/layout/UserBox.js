@@ -6,26 +6,40 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import * as React from "react";
+import RegisteryContext from "../contexts/registery-context";
+import {useContext} from "react";
+import {brown, deepPurple, grey, yellow} from "@mui/material/colors";
+import {hexToRgb} from "@mui/material";
+import {useNavigate} from "react-router";
+import LogoutDialog from "../simpleComponents/Modal";
 
 
 function UserBox() {
-    const settings = ['Profile', 'Account', 'Logout'];
+    const settings = ['Profile', 'Logout'];
+    const registerCtx = useContext(RegisteryContext);
+    const navigation = useNavigate();
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [showLogoutModal, setShowLogoutModal] = React.useState(false);
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (event) => {
         setAnchorElUser(null);
+        if (event.currentTarget.innerText === "Logout" ) {
+            setShowLogoutModal(true)
+        } else {
+            navigation(`/${event.currentTarget.innerText.toLowerCase()}`)
+        }
     };
-
 
     return (
         <Box sx={{flexGrow: 0}}>
             <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                    <Avatar sx={{bgcolor: "#ff9100"}}
+                            variant="rounded">{registerCtx.user.userName[0].toUpperCase()}</Avatar>
                 </IconButton>
             </Tooltip>
             <Menu
@@ -50,8 +64,9 @@ function UserBox() {
                     </MenuItem>
                 ))}
             </Menu>
+            {showLogoutModal && <LogoutDialog title="error" text="Do you want to log out of your account?"/>}
         </Box>
     )
 }
 
-export  default UserBox;
+export default UserBox;

@@ -17,9 +17,11 @@ export default function CustomizedSnackbars({severity, message}) {
     const handleClose = (event, reason) => {
         if (reason === 'clickaway' || event.currentTarget.title === 'Close') {
             setOpen(false);
+        } else {
+            registerCtx.unmakeRegistration();
+            registerCtx.unmakeLogin();
         }
-        registerCtx.unmakeRegistration();
-        registerCtx.unmakeLogin();
+
     };
 
     return (
